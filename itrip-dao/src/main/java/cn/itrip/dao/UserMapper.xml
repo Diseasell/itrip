@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itrip.dao.UserMapper">
+    <select id="getUsersByParams" resultType="cn.itrip.beans.pojo.User" parameterType="java.util.Map">
+        SELECT * FROM smbms_user
+        WHERE 1=1
+        <if test="userName != null and userName != ''">
+            AND userName LIKE CONCAT('%',#{userName},'%')
+        </if>
+        LIMIT #{from},#{limit};
+    </select>
+
+    <select id="getUserCountByParams" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(1)FROM smbms_user
+        WHERE 1=1
+        <if test="userName != null and userName != ''">
+            AND userName LIKE CONCAT('%',#{userName},'%')
+        </if>
+
+    </select>
+</mapper>
